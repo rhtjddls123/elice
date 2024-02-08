@@ -1,3 +1,4 @@
+import Chip from './_components/Chip';
 import SearchArea from './_components/SearchArea';
 
 export default function Home() {
@@ -5,6 +6,9 @@ export default function Home() {
     <>
       <div>
         <SearchArea></SearchArea>
+        <div className=' bg-white'>
+          <Chip>sds</Chip>
+        </div>
       </div>
     </>
   );
