@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className=' p-6 flex justify-center'>
+      <body className=' p-6 flex justify-center bg-[#f0f1f3]'>
         <div className=' w-full max-w-[1280px]'>{children}</div>
       </body>
     </html>
