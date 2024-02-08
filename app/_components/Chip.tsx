@@ -8,8 +8,8 @@ const Chip = ({ children }: { children: ReactNode }) => {
   return (
     <ChipButton
       onClick={setButtonToggle}
-      backgoundColor={buttonToggle ? '#524fa1' : '#f0f1f3'}
-      fontColor={buttonToggle ? '#ffffff' : '#000000'}
+      $backgroundColor={buttonToggle ? '#524fa1' : '#f0f1f3'}
+      $fontColor={buttonToggle ? '#ffffff' : '#000000'}
     >
       {children}
     </ChipButton>

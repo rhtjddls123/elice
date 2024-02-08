@@ -15,8 +15,8 @@ export const SearchInput = styled.input`
 
 export const ChipButton = styled.button<chipButtonType>`
   margin: 0.5rem;
-  background-color: ${(props) => props.backgoundColor || '#f0f1f3'};
-  color: ${(props) => props.fontColor || '#000000'};
+  background-color: ${(props) => props.$backgroundColor || '#f0f1f3'};
+  color: ${(props) => props.$fontColor || '#000000'};
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.75rem;
