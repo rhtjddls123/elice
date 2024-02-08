@@ -15,9 +15,14 @@ const SearchArea = () => {
 
   // eslint-disable-next-line
   const debouncedSearch = useCallback(
-    debounce((search, value) => {
-      params.set(search, value);
-      router.push(`?${params.toString()}`);
+    debounce((searchType: string, value: string) => {
+      if (value) {
+        params.set(searchType, value);
+        router.push(`?${params.toString()}`);
+      } else {
+        params.delete(searchType);
+        router.push(`?${params.toString()}`);
+      }
     }, 300),
     []
   );
