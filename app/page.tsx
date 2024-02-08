@@ -1,7 +1,11 @@
+import SearchArea from './_components/SearchArea';
+
 export default function Home() {
   return (
     <>
-      <div></div>
+      <div>
+        <SearchArea></SearchArea>
+      </div>
     </>
-  )
+  );
 }
