@@ -22,7 +22,7 @@ const FilterArea = () => {
           </FilterTitleArea>
           <FilterChipArea>
             {filterChip[i].map((a) => (
-              <Chip key={a}>{a}</Chip>
+              <Chip key={a} filterTitle={title} filterChip={a} />
             ))}
           </FilterChipArea>
         </div>
