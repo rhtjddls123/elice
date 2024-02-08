@@ -17,8 +17,10 @@ const Chip = ({ filterTitle, filterChip }: Props) => {
   const params = new URLSearchParams(searchParams?.toString());
 
   useEffect(() => {
-    if (params.has(filterTitle) && params.get(filterTitle) === filterChip) {
+    if (params.has(filterTitle, filterChip)) {
       setButtonToggle(true);
+      setVisit(true);
+    } else {
       setVisit(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
