@@ -12,7 +12,6 @@ export default function Home() {
         {arr.map((a) => (
           <CourseArea key={a}></CourseArea>
         ))}
-        di
       </div>
     </>
   );

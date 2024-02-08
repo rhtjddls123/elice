@@ -41,3 +41,30 @@ export const CardBody = styled.div`
   padding-left: 24px;
   padding-right: 24px;
 `;
+
+export const FilterTitleArea = styled.div`
+  background-color: #f9fafc;
+  border-right-width: 1px;
+  border-right-color: #e1e2e4;
+  border-style: solid;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-width: 6rem;
+  & > .div {
+    font-weight: 700;
+    border-bottom-width: 1px;
+    border-bottom-color: #e1e2e4;
+    border-style: solid;
+  }
+`;
+
+export const FilterChipArea = styled.div`
+  background-color: white;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
