@@ -34,7 +34,7 @@ export interface OrgCourseListResponses {
 export type filterConditionsType = {
   $and: [
     { title?: string },
-    { $or: [{ enroll_type?: number; is_free?: boolean }] },
+    { $or: { enroll_type?: number; is_free?: boolean }[] },
   ];
 };
 export type searchCourseType = {

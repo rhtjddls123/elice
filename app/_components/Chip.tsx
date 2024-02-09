@@ -2,7 +2,9 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useCourse } from '../_hooks/course-context';
 import { ChipButton } from '../_styles/styledComponentStyles';
+import { fetchData } from '../_utils/fetchData';
 
 type Props = {
   filterTitle: string;
@@ -15,6 +17,7 @@ const Chip = ({ filterTitle, filterChip }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams?.toString());
+  const { filter_conditions, setChip, setData } = useCourse();
 
   useEffect(() => {
     if (params.has(filterTitle, filterChip)) {
@@ -34,6 +37,11 @@ const Chip = ({ filterTitle, filterChip }: Props) => {
       params.delete(filterTitle, filterChip);
       router.push(`?${params.toString()}`);
     }
+    if (visit) {
+      setChip(params.getAll(filterTitle));
+      fetchData({ offset: 0, count: 5, filter_conditions, setData });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonToggle]);
 
