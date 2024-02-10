@@ -5,7 +5,7 @@ type Props = {
   offset: number;
   count: number;
   filter_conditions: filterConditionsType;
-  setData: Dispatch<SetStateAction<searchCourseType[] | undefined>>;
+  setData: Dispatch<SetStateAction<searchCourseType>>;
 };
 
 export const fetchData = async ({
@@ -24,7 +24,7 @@ export const fetchData = async ({
       if (res.status === 200) return res.json();
       throw new Error(await res.json());
     })
-    .then((data: searchCourseType[]) => {
+    .then((data: searchCourseType) => {
       setData(data);
     })
     .catch((e) => {

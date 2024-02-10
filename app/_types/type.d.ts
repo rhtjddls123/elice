@@ -6,7 +6,7 @@ export type chipButtonType = {
 };
 
 export interface OrgCourseListResponses {
-  courseCount: number;
+  course_count: number;
   courses: {
     // courseType: number;
     // tags: string[];
@@ -38,11 +38,14 @@ export type filterConditionsType = {
   ];
 };
 export type searchCourseType = {
-  id: number;
-  title: string;
-  isFree: boolean;
-  price: string;
-  description: string;
-  logoFile: string | null;
-  enrollType: number;
+  courseCount: number;
+  course: {
+    id: number;
+    title: string;
+    isFree: boolean;
+    price: string;
+    description: string;
+    logoFile: string | null;
+    enrollType: number;
+  }[];
 };

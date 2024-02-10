@@ -39,7 +39,7 @@ const Chip = ({ filterTitle, filterChip }: Props) => {
     }
     if (visit) {
       setChip(params.getAll(filterTitle));
-      fetchData({ offset: 0, count: 5, filter_conditions, setData });
+      fetchData({ offset: 0, count: 20, filter_conditions, setData });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -21,7 +21,7 @@ const CourseListArea = () => {
   }, []);
   return (
     <div className=' flex flex-row flex-wrap gap-8 justify-center pt-4'>
-      {data?.map((a) => (
+      {data?.course.map((a) => (
         <CourseArea
           key={a.id}
           title={a.title}

@@ -1,4 +1,8 @@
-import { OrgCourseListResponses, searchCourseType } from '@/app/_types/type';
+import {
+  OrgCourseListResponses,
+  filterConditionsType,
+  searchCourseType,
+} from '@/app/_types/type';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 type dataType = {
@@ -13,12 +17,17 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     const data = req.query as dataType;
-    const filter = JSON.parse(data.filter);
-    if (!filter.$and[0].title) {
+    const filter: filterConditionsType = JSON.parse(data.filter);
+    let courseCount;
+    // console.log(data);
+    console.log('한기전', filter);
+    if (filter.$and[0].title === '%%') {
       delete filter.$and[0].title;
     }
-    const result: searchCourseType[] = await fetch(
-      `${process.env.ELICE_API}?offset=${data.offset}&count=${data.count}&filter_conditions=${JSON.stringify(filter)}`
+    console.log('한다음', filter);
+    console.log('dd', filter.$and[1].$or);
+    const result: OrgCourseListResponses['courses'] = await fetch(
+      `${process.env.ELICE_API}?offset=${data.offset}&count=20&filter_conditions=${JSON.stringify(filter)}`
     )
       .then((res) => res.json())
       .then((data: OrgCourseListResponses) => {
@@ -26,20 +35,28 @@ export default async function handler(
         for (const i of data.courses) {
           arr.push(i);
         }
-        return arr.map((a) => {
-          return {
-            id: a.id,
-            title: a.title,
-            isFree: a.is_free,
-            price: a.price,
-            description: a.short_description,
-            logoFile: a.logo_file_url,
-            enrollType: a.enroll_type,
-          };
-        });
+        courseCount = data.course_count;
+        return arr;
       });
 
-    return res.status(200).json(result);
+    const datas = result.map((a) => {
+      return {
+        id: a.id,
+        title: a.title,
+        isFree: a.is_free,
+        price: a.price,
+        description: a.short_description,
+        logoFile: a.logo_file_url,
+        enrollType: a.enroll_type,
+      };
+    });
+
+    const course = {
+      courseCount: courseCount,
+      course: datas,
+    };
+
+    return res.status(200).json(course);
   } else {
     return res.status(500).json('잘못된 요청입니다.');
   }

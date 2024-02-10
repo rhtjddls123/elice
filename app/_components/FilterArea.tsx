@@ -1,19 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
-import { useCourse } from '../_hooks/course-context';
 import {
   FilterChipArea,
   FilterTitleArea,
 } from '../_styles/styledComponentStyles';
-import { fetchData } from '../_utils/fetchData';
 import Chip from './Chip';
 
 const FilterArea = () => {
-  const { data, filter_conditions, setTitle, setData } = useCourse();
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams?.toString());
   const filterTitle = ['가격'];
   const filterChip = [['무료', '유료', '구독']];
   return (
