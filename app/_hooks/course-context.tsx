@@ -64,30 +64,20 @@ const CourseContextProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const setTitle = (value: string) => {
-    console.log('타이틀밸류융유', value);
     if (value) filter_conditions.$and[0].title = `%${value}%`;
     else {
       filter_conditions.$and[0] = {};
-      console.log(filter_conditions);
     }
   };
 
   const setChip = (value: string[]) => {
-    console.log('밸류는', value);
     for (const i of value) {
       const isFree = i === '무료' ? true : i === '유료' ? false : undefined;
       const enrollType = i === '구독' ? 4 : 0;
-      console.log(enrollType, isFree);
       const filter = {
         enroll_type: enrollType,
         is_free: isFree,
       };
-      console.log(
-        '확인뇽',
-        !filter_conditions.$and[1].$or.some(
-          (item) => item.is_free === filter.is_free
-        )
-      );
       if (
         !filter_conditions.$and[1].$or.some(
           (item) =>
@@ -96,14 +86,12 @@ const CourseContextProvider = ({ children }: { children: ReactNode }) => {
               item.enroll_type === filter.enroll_type)
         )
       ) {
-        console.log('현재필터', filter_conditions.$and[1].$or);
         filter_conditions.$and[1].$or.push(filter);
       }
     }
     if (value.length === 0) {
       filter_conditions.$and[1].$or = [];
     }
-    console.log('아니이게', filter_conditions.$and[1].$or);
   };
 
   return (

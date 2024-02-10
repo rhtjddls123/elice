@@ -19,13 +19,9 @@ export default async function handler(
     const data = req.query as dataType;
     const filter: filterConditionsType = JSON.parse(data.filter);
     let courseCount;
-    // console.log(data);
-    console.log('한기전', filter);
     if (filter.$and[0].title === '%%') {
       delete filter.$and[0].title;
     }
-    console.log('한다음', filter);
-    console.log('dd', filter.$and[1].$or);
     const result: OrgCourseListResponses['courses'] = await fetch(
       `${process.env.ELICE_API}?offset=${data.offset}&count=20&filter_conditions=${JSON.stringify(filter)}`
     )
