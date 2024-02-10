@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { CourseContextProvider } from './_hooks/course-context';
 import './_styles/globals.css';
+import Loding from './loding';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +18,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className=' p-6 flex justify-center bg-[#f0f1f3]'>
         <CourseContextProvider>
-          <div className=' w-full max-w-[1280px]'>{children}</div>
+          <Suspense fallback={<Loding />}>
+            <div className=' w-full max-w-[1280px]'>{children}</div>
+          </Suspense>
         </CourseContextProvider>
       </body>
     </html>
