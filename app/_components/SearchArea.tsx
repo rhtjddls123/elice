@@ -21,14 +21,15 @@ const SearchArea = () => {
     debounce(async (searchType: string, value: string) => {
       if (value) {
         params.set(searchType, value);
+        params.set('offset', '0');
         router.push(`?${params.toString()}`);
       } else {
         params.delete(searchType);
+        params.set('offset', '0');
         router.push(`?${params.toString()}`);
       }
       await setTitle(params.get(searchType) || '');
-      await fetchData({ offset: 0, count: 5, filter_conditions, setData });
-      console.log(data);
+      await fetchData({ offset: 0, count: 20, filter_conditions, setData });
     }, 300),
     []
   );

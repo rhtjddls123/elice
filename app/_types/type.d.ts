@@ -49,3 +49,8 @@ export type searchCourseType = {
     enrollType: number;
   }[];
 };
+
+type paginationButtonType = {
+  $fontColor?: string;
+  $backgroundColor?: string;
+};

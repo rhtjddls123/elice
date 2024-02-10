@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useCourse } from '../_hooks/course-context';
 import { ChipButton } from '../_styles/styledComponentStyles';
 import { fetchData } from '../_utils/fetchData';
@@ -9,9 +9,10 @@ import { fetchData } from '../_utils/fetchData';
 type Props = {
   filterTitle: string;
   filterChip: string;
+  setCurPage: Dispatch<SetStateAction<number>>;
 };
 
-const Chip = ({ filterTitle, filterChip }: Props) => {
+const Chip = ({ filterTitle, filterChip, setCurPage }: Props) => {
   const [buttonToggle, setButtonToggle] = useState<boolean>(false);
   const [visit, setVisit] = useState(false);
   const searchParams = useSearchParams();
@@ -32,15 +33,18 @@ const Chip = ({ filterTitle, filterChip }: Props) => {
   useEffect(() => {
     if (buttonToggle && !params.has(filterTitle, filterChip)) {
       params.append(filterTitle, filterChip);
+      params.set('offset', '0');
       router.push(`?${params.toString()}`);
+      setChip(params.getAll(filterTitle));
+      fetchData({ offset: 0, count: 20, filter_conditions, setData });
     } else if (!buttonToggle && visit) {
       params.delete(filterTitle, filterChip);
+      params.set('offset', '0');
       router.push(`?${params.toString()}`);
-    }
-    if (visit) {
       setChip(params.getAll(filterTitle));
       fetchData({ offset: 0, count: 20, filter_conditions, setData });
     }
+    setCurPage(1);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonToggle]);

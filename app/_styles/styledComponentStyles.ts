@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { chipButtonType } from '../_types/type';
+import { chipButtonType, paginationButtonType } from '../_types/type';
 
 export const SearchInput = styled.input`
   ::placeholder {
@@ -133,4 +133,18 @@ export const FilterChipArea = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+`;
+
+export const PaginationBox = styled.div`
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  margin-top: 1rem;
+`;
+
+export const PaginationButtonStyle = styled.button<paginationButtonType>`
+  width: 24px;
+  height: 24px;
+  background-color: ${(props) => props.$backgroundColor || '#0000'};
+  color: ${(props) => props.$fontColor || '#999'};
 `;

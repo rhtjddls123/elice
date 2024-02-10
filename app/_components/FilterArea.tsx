@@ -1,12 +1,15 @@
-'use client';
-
+import { Dispatch, SetStateAction } from 'react';
 import {
   FilterChipArea,
   FilterTitleArea,
 } from '../_styles/styledComponentStyles';
 import Chip from './Chip';
 
-const FilterArea = () => {
+type Props = {
+  setCurPage: Dispatch<SetStateAction<number>>;
+};
+
+const FilterArea = ({ setCurPage }: Props) => {
   const filterTitle = ['가격'];
   const filterChip = [['무료', '유료', '구독']];
   return (
@@ -21,7 +24,12 @@ const FilterArea = () => {
           </FilterTitleArea>
           <FilterChipArea>
             {filterChip[i].map((a) => (
-              <Chip key={a} filterTitle={title} filterChip={a} />
+              <Chip
+                key={a}
+                filterTitle={title}
+                filterChip={a}
+                setCurPage={setCurPage}
+              />
             ))}
           </FilterChipArea>
         </div>

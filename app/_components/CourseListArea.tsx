@@ -3,22 +3,15 @@
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useCourse } from '../_hooks/course-context';
+import { searchCourseType } from '../_types/type';
 import { fetchData } from '../_utils/fetchData';
 import CourseArea from './CourseArea';
 
-const CourseListArea = () => {
-  const { data, filter_conditions, setTitle, setData, setChip } = useCourse();
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams?.toString());
+type Props = {
+  data: searchCourseType;
+};
 
-  useEffect(() => {
-    setTitle(params.get('title') || '');
-    for (const key of params.keys()) {
-      if (key !== 'title') setChip(params.getAll(key));
-    }
-    fetchData({ offset: 0, count: 20, filter_conditions, setData });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const CourseListArea = ({ data }: Props) => {
   return (
     <div className=' flex flex-row flex-wrap gap-8 justify-center pt-4'>
       {data?.course.map((a) => (
