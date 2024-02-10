@@ -33,6 +33,9 @@ export default function Home() {
     <>
       <SearchArea></SearchArea>
       <FilterArea setCurPage={setCurPage}></FilterArea>
+      <div className=' mt-4'>
+        <label className=' font-bold text-sm'>전체 {data.courseCount}개</label>
+      </div>
       <CourseListArea data={data}></CourseListArea>
       <PaginationArea
         totalPage={Math.floor(data.courseCount / 20) + 1}
