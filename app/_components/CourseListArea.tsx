@@ -1,10 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { useCourse } from '../_hooks/course-context';
 import { searchCourseType } from '../_types/type';
-import { fetchData } from '../_utils/fetchData';
 import CourseArea from './CourseArea';
 
 type Props = {

@@ -14,7 +14,7 @@ const SearchArea = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams?.toString());
-  const { filter_conditions, setTitle, setData, data } = useCourse();
+  const { filter_conditions, setTitle, setData } = useCourse();
 
   // eslint-disable-next-line
   const debouncedSearch = useCallback(

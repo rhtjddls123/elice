@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useCourse } from '../_hooks/course-context';
 import {
   PaginationBox,
   PaginationButtonStyle,
