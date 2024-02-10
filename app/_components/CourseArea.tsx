@@ -24,8 +24,8 @@ const CourseArea = ({
   enrollType,
   isFree,
 }: Props) => {
-  const label = ['수업: 온라인', '기간: 무제한', '난이도: 미설정'];
-  const icon = ['/serchIcon.svg', '/serchIcon.svg', '/serchIcon.svg'];
+  const label = ['난이도: 미설정', '수업: 온라인', '기간: 무제한'];
+  const icon = ['/chart.svg', '/monitor.svg', '/calendar.svg'];
   return (
     <CourseCard>
       <CardBody>
