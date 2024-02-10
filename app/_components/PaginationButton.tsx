@@ -20,7 +20,7 @@ const PaginationButton = ({ pageNumber, setCurPage }: Props) => {
   const { filter_conditions, setData, setTitle, setChip } = useCourse();
 
   useEffect(() => {
-    if (params.get('offset') !== Number(pageNumber) - 1 + '') {
+    if (params.get('offset') !== 20 * (Number(pageNumber) - 1) + '') {
       setFontColor('#999');
       setBackgroundColor(`#0000`);
     } else {
@@ -34,14 +34,14 @@ const PaginationButton = ({ pageNumber, setCurPage }: Props) => {
       onClick={() => {
         setFontColor('#ffffff');
         setBackgroundColor(`#524fa1`);
-        params.set('offset', Number(pageNumber) - 1 + '');
+        params.set('offset', 20 * (Number(pageNumber) - 1) + '');
         router.push(`?${params.toString()}`);
         router.refresh();
         setCurPage(+pageNumber);
         setTitle(params.get('title') || '');
         setChip(params.getAll('가격'));
         fetchData({
-          offset: +pageNumber,
+          offset: 20 * (Number(pageNumber) - 1),
           count: 20,
           filter_conditions,
           setData,

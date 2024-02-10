@@ -2,10 +2,12 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useCourse } from '../_hooks/course-context';
 import {
   PaginationBox,
   PaginationButtonStyle,
 } from '../_styles/styledComponentStyles';
+import { fetchData } from '../_utils/fetchData';
 import PaginationButton from './PaginationButton';
 
 type Props = {
@@ -17,6 +19,7 @@ const PaginationArea = ({ totalPage, curPage, setCurPage }: Props) => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams?.toString());
   const router = useRouter();
+  const { filter_conditions, setData } = useCourse();
   // const [curPage, setCurPage] = useState(Number(params.get('offset')) + 1 || 1);
   const [arr, setArr] = useState<number[]>([]);
   useEffect(() => {
@@ -50,9 +53,15 @@ const PaginationArea = ({ totalPage, curPage, setCurPage }: Props) => {
         $backgroundColor={Number(params.get('offset')) === 0 ? '#ccc' : '#222'}
         disabled={Number(params.get('offset')) === 0}
         onClick={() => {
-          params.set('offset', Number(params.get('offset')) - 1 + '');
+          params.set('offset', Number(params.get('offset')) - 20 + '');
           router.push(`?${params.toString()}`);
           router.refresh();
+          fetchData({
+            offset: Number(params.get('offset')),
+            count: 20,
+            filter_conditions,
+            setData,
+          });
         }}
       >
         {'<'}
@@ -66,13 +75,23 @@ const PaginationArea = ({ totalPage, curPage, setCurPage }: Props) => {
       ))}
       <PaginationButtonStyle
         $backgroundColor={
-          Number(params.get('offset')) + 1 >= totalPage ? '#ccc' : '#222'
+          Math.floor(Number(params.get('offset')) / 20) + 1 >= totalPage
+            ? '#ccc'
+            : '#222'
         }
-        disabled={Number(params.get('offset')) + 1 >= totalPage}
+        disabled={
+          Math.floor(Number(params.get('offset')) / 20) + 1 >= totalPage
+        }
         onClick={() => {
-          params.set('offset', Number(params.get('offset')) + 1 + '');
+          params.set('offset', Number(params.get('offset')) + 20 + '');
           router.push(`?${params.toString()}`);
           router.refresh();
+          fetchData({
+            offset: Number(params.get('offset')),
+            count: 20,
+            filter_conditions,
+            setData,
+          });
         }}
       >
         {'>'}
