@@ -71,6 +71,7 @@ const CourseContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const setChip = (value: string[]) => {
+    filter_conditions.$and[1].$or = [];
     for (const i of value) {
       const isFree = i === '무료' ? true : i === '유료' ? false : undefined;
       const enrollType = i === '구독' ? 4 : 0;
@@ -78,19 +79,7 @@ const CourseContextProvider = ({ children }: { children: ReactNode }) => {
         enroll_type: enrollType,
         is_free: isFree,
       };
-      if (
-        !filter_conditions.$and[1].$or.some(
-          (item) =>
-            item.is_free === filter.is_free ||
-            (filter.is_free === undefined &&
-              item.enroll_type === filter.enroll_type)
-        )
-      ) {
-        filter_conditions.$and[1].$or.push(filter);
-      }
-    }
-    if (value.length === 0) {
-      filter_conditions.$and[1].$or = [];
+      filter_conditions.$and[1].$or.push(filter);
     }
   };
 

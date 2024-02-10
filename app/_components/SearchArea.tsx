@@ -14,23 +14,37 @@ const SearchArea = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams?.toString());
-  const { filter_conditions, setTitle, setData } = useCourse();
+  const { filter_conditions, setTitle, setData, setChip } = useCourse();
 
   // eslint-disable-next-line
   const debouncedSearch = useCallback(
-    debounce(async (searchType: string, value: string) => {
-      if (value) {
-        params.set(searchType, value);
-        params.set('offset', '0');
+    debounce(
+      (
+        searchType: string,
+        value: string,
+        query: IterableIterator<[string, string]>
+      ) => {
+        params.delete('가격');
+        if (value) {
+          params.set(searchType, value);
+        } else {
+          params.delete(searchType);
+          params.set('offset', '0');
+        }
+        for (const [key, v] of query) {
+          if (key === 'title') params.set('title', value);
+          else if (key === 'offset') params.set('offset', '0');
+          else {
+            params.append(key, v);
+          }
+        }
         router.push(`?${params.toString()}`);
-      } else {
-        params.delete(searchType);
-        params.set('offset', '0');
-        router.push(`?${params.toString()}`);
-      }
-      await setTitle(params.get(searchType) || '');
-      await fetchData({ offset: 0, count: 20, filter_conditions, setData });
-    }, 300),
+        setChip(params.getAll('가격'));
+        setTitle(params.get(searchType) || '');
+        fetchData({ offset: 0, count: 20, filter_conditions, setData });
+      },
+      300
+    ),
     []
   );
 
@@ -55,7 +69,7 @@ const SearchArea = () => {
         ref={searchRef}
         onChange={() => {
           const value = searchRef.current?.value;
-          debouncedSearch('title', '' + value);
+          debouncedSearch('title', '' + value, params.entries());
         }}
       ></SearchInput>
     </div>
