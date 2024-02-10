@@ -49,10 +49,10 @@ const CourseArea = ({
           </CardIconText>
           <CardLogo>
             <Image
-              src={logoFile}
+              src={logoFile || '/noImg.PNG'}
               width={52}
               height={52}
-              alt='serchIcon'
+              alt='courseIcon'
             ></Image>
           </CardLogo>
         </div>
